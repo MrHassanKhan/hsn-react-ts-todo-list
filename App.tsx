@@ -1,4 +1,10 @@
 import React, { Component } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 import { Task } from "./models/task";
 import { NewTaskForm } from "./components/NewTaskForm";
@@ -20,15 +26,49 @@ class App extends Component<{}, State> {
 
   render() {
     return (
+      <Router>
       <div>
-        <h2>Hello React TS!</h2>
-        <NewTaskForm
-          task={this.state.newTask}
-          onAdd={this.addTask}
-          onChange={this.handleTaskChange}
-        />
-        <TasksList tasks={this.state.tasks} onDelete={this.deleteTask} />
+        <nav>
+          <ul>
+            <li>
+              <Link to="/tasklist">Task List</Link>
+            </li>
+            <li>
+              <Link to="/newtask">New Task</Link>
+            </li>
+            <li>
+              <Link to="/edittask">Edit Task</Link>
+            </li>
+          </ul>
+        </nav>
+        <Switch>
+          <Route path="/newtask">
+            <NewTaskForm
+              task={this.state.newTask}
+              onAdd={this.addTask}
+              onChange={this.handleTaskChange}
+            />
+          </Route>
+          <Route path="/tasklist">
+            <TasksList tasks={this.state.tasks} onDelete={this.deleteTask} /> 
+          </Route>
+          <Route path="/">
+            
+          </Route>
+        </Switch>
       </div>
+    </Router>
+    
+
+      // <div>
+      //   <h2>Hello React TS!</h2>
+      //   <NewTaskForm
+      //     task={this.state.newTask}
+      //     onAdd={this.addTask}
+      //     onChange={this.handleTaskChange}
+      //   />
+      //   <TasksList tasks={this.state.tasks} onDelete={this.deleteTask} />
+      // </div>
     );
   }
 
